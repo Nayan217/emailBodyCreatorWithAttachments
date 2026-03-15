@@ -1,0 +1,63 @@
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding: 13px 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: 'Sora', sans-serif;
+  font-size: .76rem;
+  font-weight: 500;
+  padding: 7px 14px;
+  margin-bottom: -1px;
+  transition: color .2s;
+  white-space: nowrap;
+}
+.tabActive {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tc { padding: 18px; }
+
+.iframe {
+  width: 100%;
+  min-height: 300px;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  display: block;
+}
+
+.codeOut {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  line-height: 1.7;
+  color: #a5b4fc;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}

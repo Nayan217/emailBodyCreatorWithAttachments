@@ -1,0 +1,31 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0e0f14;
+  --panel:   #14161f;
+  --border:  #252836;
+  --accent:  #7c5cfc;
+  --accent2: #fc5c7d;
+  --green:   #4ade80;
+  --yellow:  #fbbf24;
+  --text:    #e2e4f0;
+  --muted:   #6b7280;
+  --code-bg: #1a1c28;
+  --radius:  10px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  min-height: 100vh;
+  padding: 24px;
+  font-size: 14px;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button { cursor: pointer; font-family: inherit; }
