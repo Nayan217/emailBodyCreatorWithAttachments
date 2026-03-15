@@ -1,10 +1,10 @@
 /**
- * src/utils.js
+ * src/utils.ts
  * ────────────
  * Shared utilities used across server-side modules.
  */
 
-function escHtml(s) {
+export function escHtml(s: unknown): string {
   return String(s)
     .replace(/&/g,  '&amp;')
     .replace(/</g,  '&lt;')
@@ -12,5 +12,3 @@ function escHtml(s) {
     .replace(/"/g,  '&quot;')
     .replace(/'/g,  '&#39;');
 }
-
-module.exports = { escHtml };

@@ -1,15 +1,25 @@
-import React from 'react';
+import { EmailConfig } from '../types';
+import EmailConfigForm from './EmailConfig';
 import s from '../shared.module.css';
-import EmailConfig from './EmailConfig';
 
-export default function TemplatePanel({ snippet, onSnippetChange, config, onConfigChange, tokens }) {
+interface Props {
+  snippet: string;
+  onSnippetChange: (s: string) => void;
+  config: EmailConfig;
+  onConfigChange: (c: EmailConfig) => void;
+  tokens: string[];
+}
+
+export default function TemplatePanel({
+  snippet, onSnippetChange, config, onConfigChange, tokens,
+}: Props) {
   return (
     <div className={s.panel}>
       <div className={s.panelHeader}>
         <span className={s.panelTitle}>EJS Template</span>
       </div>
 
-      <EmailConfig config={config} onChange={onConfigChange} />
+      <EmailConfigForm config={config} onChange={onConfigChange} />
 
       <label className={s.fieldLabel}>EJS snippet:</label>
       <textarea

@@ -1,7 +1,11 @@
-import React from 'react';
 import styles from './Toast.module.css';
 
-export default function Toast({ msg, error }) {
+interface ToastProps {
+  msg: string;
+  error?: boolean;
+}
+
+export default function Toast({ msg, error = false }: ToastProps) {
   return (
     <div className={`${styles.toast} ${error ? styles.error : ''}`}>
       {msg}

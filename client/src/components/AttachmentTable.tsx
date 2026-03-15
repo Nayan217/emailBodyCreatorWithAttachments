@@ -1,24 +1,34 @@
-import React, { useId } from 'react';
+import { ChangeEvent } from 'react';
+import { AttachRow, Disposition } from '../types';
 import s from '../shared.module.css';
 
-function AttachRow({ row, tokens, onRemove, onUpdate }) {
-  const fileInputId = `file-${row.id}`;
-  const datalistId  = `dl-${row.id}`;
+// ── AttachRow ─────────────────────────────────────────────────────────────
 
-  const handleFile = e => {
-    const f = e.target.files[0];
+interface AttachRowProps {
+  row: AttachRow;
+  tokens: string[];
+  onRemove: (id: number) => void;
+  onUpdate: (id: number, patch: Partial<AttachRow>) => void;
+}
+
+function AttachRowItem({ row, tokens, onRemove, onUpdate }: AttachRowProps) {
+  const fileInputId = `file-${row.id}`;
+  const datalistId = `dl-${row.id}`;
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
     if (!f) return;
     const isImage = f.type.startsWith('image/');
     onUpdate(row.id, {
-      file:     f,
+      file: f,
       fileName: f.name,
       isImage,
-      // downgrade inline→attach if a non-image is loaded
+      // downgrade inline → attach if a non-image is loaded
       disposition: (!isImage && row.disposition === 'inline') ? 'attach' : row.disposition,
     });
   };
 
-  const setDisp = disp => onUpdate(row.id, { disposition: disp });
+  const setDisp = (disp: Disposition) => onUpdate(row.id, { disposition: disp });
 
   return (
     <tr>
@@ -77,13 +87,29 @@ function AttachRow({ row, tokens, onRemove, onUpdate }) {
 
       {/* Remove */}
       <td>
-        <button className={s.removeBtn} onClick={() => onRemove(row.id)} title="Remove">✕</button>
+        <button
+          className={s.removeBtn}
+          onClick={() => onRemove(row.id)}
+          title="Remove"
+        >
+          ✕
+        </button>
       </td>
     </tr>
   );
 }
 
-export default function AttachmentTable({ rows, tokens, onAdd, onRemove, onUpdate }) {
+// ── AttachmentTable ───────────────────────────────────────────────────────
+
+interface Props {
+  rows: AttachRow[];
+  tokens: string[];
+  onAdd: () => void;
+  onRemove: (id: number) => void;
+  onUpdate: (id: number, patch: Partial<AttachRow>) => void;
+}
+
+export default function AttachmentTable({ rows, tokens, onAdd, onRemove, onUpdate }: Props) {
   return (
     <div className={s.panel}>
       <div className={s.panelHeader}>
@@ -102,7 +128,7 @@ export default function AttachmentTable({ rows, tokens, onAdd, onRemove, onUpdat
         </thead>
         <tbody>
           {rows.map(row => (
-            <AttachRow
+            <AttachRowItem
               key={row.id}
               row={row}
               tokens={tokens}
@@ -114,7 +140,7 @@ export default function AttachmentTable({ rows, tokens, onAdd, onRemove, onUpdat
       </table>
 
       {rows.length === 0 && (
-        <p className={s.tableHint}>No attachments added. Click "+ Add row".</p>
+        <p className={s.tableHint}>No attachments added. Click &quot;+ Add row&quot;.</p>
       )}
 
       <div className={s.legend}>

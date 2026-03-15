@@ -9,11 +9,11 @@ const EJS_BUILTINS = new Set([
 
 /**
  * Extracts unique EJS variable identifiers from a template string.
- * Scans inside <% ... %> tags, filters JS builtins.
+ * Scans inside <% ... %> tags and filters out JS builtins.
  */
-export function useTokenExtractor(template) {
+export function useTokenExtractor(template: string): string[] {
   return useMemo(() => {
-    const tags   = [...template.matchAll(/<%[\s\S]*?%>/g)];
+    const tags = [...template.matchAll(/<%[\s\S]*?%>/g)];
     const tokens = tags
       .flatMap(([tag]) => [...tag.matchAll(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\b/g)])
       .map(([, name]) => name)
